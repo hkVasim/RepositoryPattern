@@ -4,5 +4,39 @@
         <name>RepositoryPattern</name>
     </assembly>
     <members>
+        <member name="M:RepositoryPattern.Controllers.EmployeeController.GetAllEmployees">
+            <summary>
+            Get All Employee.
+            </summary>
+            <returns>List of Employee.</returns>
+        </member>
+        <member name="M:RepositoryPattern.Controllers.EmployeeController.GetEmployee(System.Int64)">
+            <summary>
+            Get Empployee by Id.
+            </summary>
+            <param name="id">Emlpoyee Id.</param>
+            <returns>Emlpoyee.</returns>
+        </member>
+        <member name="M:RepositoryPattern.Controllers.EmployeeController.PutEmployee(Pattern.Models.Employee)">
+            <summary>
+            Update Employee.
+            </summary>
+            <param name="employee">employee.</param>
+            <returns>Update Employee.</returns>
+        </member>
+        <member name="M:RepositoryPattern.Controllers.EmployeeController.PostEmployee(Pattern.VM.EmployeeVM)">
+            <summary>
+            Add Employee.
+            </summary>
+            <param name="employeeModel">employeeModel.</param>
+            <returns>Employee.</returns>
+        </member>
+        <member name="M:RepositoryPattern.Controllers.EmployeeController.DeleteEmployee(System.Int64)">
+            <summary>
+            Delete Employee by Id.
+            </summary>
+            <param name="id">Employee Id.</param>
+            <returns>Delete Record.</returns>
+        </member>
     </members>
 </doc>

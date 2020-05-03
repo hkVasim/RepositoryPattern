@@ -8,11 +8,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Pattern.BL;
+using Pattern.Repo;
 
 namespace RepositoryPattern
 {
@@ -28,6 +31,20 @@ namespace RepositoryPattern
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<ApplicationContext>(item => item.UseSqlServer
+                    (this.Configuration.GetConnectionString("ApplicationContext")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        //.AllowCredentials()
+                        .WithExposedHeaders("X-Pagination"));
+            });
+
             services.AddControllers();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -39,6 +56,9 @@ namespace RepositoryPattern
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+            services.AddScoped<IEmployeeBL, EmployeeBL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
